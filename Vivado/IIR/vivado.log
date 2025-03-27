@@ -30,3 +30,5 @@ Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2024.2/data/ip'.
+add_files -norecurse C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/src/IIR.v
+update_compile_order -fileset sources_1

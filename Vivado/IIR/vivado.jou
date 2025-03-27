@@ -23,3 +23,5 @@
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.xpr
+add_files -norecurse C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/src/IIR.v
+update_compile_order -fileset sources_1
