@@ -3,107 +3,53 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="Interface_tb_behav.wdb" id="1">
+      <db_ref path="IIR_tb_behav.wdb" id="1">
          <top_modules>
-            <top_module name="Interface_tb" />
+            <top_module name="IIR_tb" />
             <top_module name="glbl" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="300.527 ns"></ZoomEndTime>
-      <Cursor1Time time="135.011 ns"></Cursor1Time>
+      <ZoomEndTime time="235.911 ns"></ZoomEndTime>
+      <Cursor1Time time="135.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="264"></NameColumnWidth>
-      <ValueColumnWidth column_width="90"></ValueColumnWidth>
+      <ValueColumnWidth column_width="78"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="21" />
-   <wvobject fp_name="/Interface_tb/CLK" type="logic">
-      <obj_property name="ElementShortName">CLK</obj_property>
-      <obj_property name="ObjectShortName">CLK</obj_property>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/IIR_tb/dut/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/signalgen_inst/i" type="array">
-      <obj_property name="ElementShortName">i[3:0]</obj_property>
-      <obj_property name="ObjectShortName">i[3:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/IIR_tb/dut/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
    </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sCosine" type="array">
-      <obj_property name="ElementShortName">sCosine[7:0]</obj_property>
-      <obj_property name="ObjectShortName">sCosine[7:0]</obj_property>
+   <wvobject fp_name="/IIR_tb/dut/cke" type="logic">
+      <obj_property name="ElementShortName">cke</obj_property>
+      <obj_property name="ObjectShortName">cke</obj_property>
    </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sDelayed_Cosine" type="array">
-      <obj_property name="ElementShortName">sDelayed_Cosine[7:0]</obj_property>
-      <obj_property name="ObjectShortName">sDelayed_Cosine[7:0]</obj_property>
+   <wvobject fp_name="/IIR_tb/dut/xn" type="array">
+      <obj_property name="ElementShortName">xn[7:0]</obj_property>
+      <obj_property name="ObjectShortName">xn[7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sCosine_F" type="array">
-      <obj_property name="ElementShortName">sCosine_F[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sCosine_F[15:0]</obj_property>
+   <wvobject fp_name="/IIR_tb/dut/yn" type="array">
+      <obj_property name="ElementShortName">yn[15:0]</obj_property>
+      <obj_property name="ObjectShortName">yn[15:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sAd0" type="array">
-      <obj_property name="ElementShortName">sAd0[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sAd0[15:0]</obj_property>
+   <wvobject fp_name="/IIR_tb/dut/a" type="array">
+      <obj_property name="ElementShortName">a[7:0]</obj_property>
+      <obj_property name="ObjectShortName">a[7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sAd1" type="array">
-      <obj_property name="ElementShortName">sAd1[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sAd1[15:0]</obj_property>
+   <wvobject fp_name="/IIR_tb/dut/b" type="array">
+      <obj_property name="ElementShortName">b[7:0]</obj_property>
+      <obj_property name="ObjectShortName">b[7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sAd2" type="array">
-      <obj_property name="ElementShortName">sAd2[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sAd2[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sAd3" type="array">
-      <obj_property name="ElementShortName">sAd3[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sAd3[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sAd4" type="array">
-      <obj_property name="ElementShortName">sAd4[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sAd4[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sAd5" type="array">
-      <obj_property name="ElementShortName">sAd5[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sAd5[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sAd6" type="array">
-      <obj_property name="ElementShortName">sAd6[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sAd6[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sAd7" type="array">
-      <obj_property name="ElementShortName">sAd7[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sAd7[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/si_o" type="array">
-      <obj_property name="ElementShortName">si_o[3:0]</obj_property>
-      <obj_property name="ObjectShortName">si_o[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sFiltered_Cosine" type="array">
-      <obj_property name="ElementShortName">sFiltered_Cosine[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sFiltered_Cosine[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sBUS_OUT" type="array">
-      <obj_property name="ElementShortName">sBUS_OUT[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sBUS_OUT[15:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/MODE_SW" type="logic">
-      <obj_property name="ElementShortName">MODE_SW</obj_property>
-      <obj_property name="ObjectShortName">MODE_SW</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/Last_sMode_SW" type="logic">
-      <obj_property name="ElementShortName">Last_sMode_SW</obj_property>
-      <obj_property name="ObjectShortName">Last_sMode_SW</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/sDelayed_cke" type="logic">
-      <obj_property name="ElementShortName">sDelayed_cke</obj_property>
-      <obj_property name="ObjectShortName">sDelayed_cke</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/dut/Restart_SignalGen" type="logic">
-      <obj_property name="ElementShortName">Restart_SignalGen</obj_property>
-      <obj_property name="ObjectShortName">Restart_SignalGen</obj_property>
-   </wvobject>
-   <wvobject fp_name="/Interface_tb/RST" type="logic">
-      <obj_property name="ElementShortName">RST</obj_property>
-      <obj_property name="ObjectShortName">RST</obj_property>
+   <wvobject fp_name="/IIR_tb/dut/yn_m1" type="array">
+      <obj_property name="ElementShortName">yn_m1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">yn_m1[15:0]</obj_property>
    </wvobject>
 </wave_config>

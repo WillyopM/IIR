@@ -5,71 +5,55 @@ module INTERFACE (
     output wire [15:0] led // Signal filtré
 );
     // Signaux utilisés pour ILA
-    wire signed [7:0] sCosine;
-    reg signed [7:0] sDelayed_Cosine = 0;
-    reg signed [15:0] sCosine_F = 0;
-    reg signed [15:0] sBUS_OUT = 0;
+    wire signed [7:0] cosine;
+    reg signed [7:0] delayed_Cosine = 0;
+    reg signed [15:0] cosine_F = 0;
+    reg signed [15:0] bus_out = 0;
     reg Last_sMode_SW = 0;
-    reg sDelayed_cke = 0;
+    reg delayed_cke = 0;
     reg Restart_SignalGen = 0;
 
-    wire [15:0] sAd0 = 0;
-    wire [15:0] sAd1 = 0;
-    wire [15:0] sAd2 = 0;
-    wire [15:0] sAd3 = 0;
-    wire [15:0] sAd4 = 0;
-    wire [15:0] sAd5 = 0;
-    wire [15:0] sAd6 = 0;
-    wire [15:0] sAd7 = 0;
     wire [3:0] si_o = 0;
 
-    wire signed [15:0] sFiltered_Cosine;
+    wire signed [15:0] yn;
 
     // Instantiation of FILTRE module
-    FIR filtre_inst (
+    IIR iir_inst (
         .clk(CLK),
         .rst(RST),
-        .cke(sDelayed_cke),
-        .cosine(sDelayed_Cosine),
-        .cosine_f(sFiltered_Cosine),
-        .oAd0(sAd0),
-        .oAd1(sAd1),
-        .oAd2(sAd2),
-        .oAd3(sAd3),
-        .oAd4(sAd4),
-        .oAd5(sAd5),
-        .oAd6(sAd6),
-        .oAd7(sAd7)
+        .cke(delayed_cke),
+        .xn(delayed_Cosine),
+        .yn(yn)
     );
 
     SignalGen signalgen_inst (
         .clk(CLK),
         .rst(RST),
         .restart(Restart_SignalGen),
-        .cosine(sCosine),
+        .cosine(cosine),
         .i_o(si_o)
     );
 
     always @(posedge CLK) begin
 
         if (RST == 1 || Restart_SignalGen == 1)
-            sDelayed_Cosine <= 0;
+            delayed_Cosine <= 0;
         else
-            sDelayed_Cosine <= sCosine;
+            delayed_Cosine <= cosine;
 
         Restart_SignalGen <= Last_sMode_SW ^ MODE_SW;
 
         Last_sMode_SW <= MODE_SW;
-        sDelayed_cke <= Last_sMode_SW;
+        delayed_cke <= Last_sMode_SW;
 
         if (MODE_SW == 1)
-            sBUS_OUT <= sFiltered_Cosine;
+            bus_out <= yn;
         else begin
-            sBUS_OUT[15:8] <= sCosine;
-            sBUS_OUT[7:0] <= 0;
+            bus_out[15:8] <= cosine;
+            bus_out[7:0] <= 0;
         end
     end
 
-    assign led = sBUS_OUT;
+    assign led = bus_out;
 
 endmodule

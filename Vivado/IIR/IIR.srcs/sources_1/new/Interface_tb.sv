@@ -55,14 +55,26 @@ module Interface_tb;
         RST = 0;
 
         // Test MODE_SW = 0 (default mode)
-        #50;
+        #200;
         MODE_SW = 0;
 
         // Test MODE_SW = 1 (filtered mode)
-        #50;
+        #200;
         MODE_SW = 1;
 
         // Toggle MODE_SW back to 0
+        #200;
+        MODE_SW = 0;
+
+        // Test reset during operation
+        #30;
+        RST = 1;
+        #20;
+        RST = 0;
+
+        // Test MODE_SW toggling
+        #50;
+        MODE_SW = 1;
         #50;
         MODE_SW = 0;
 

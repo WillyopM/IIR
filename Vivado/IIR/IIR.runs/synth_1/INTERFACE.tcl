@@ -74,7 +74,7 @@ set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv {
-  C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.srcs/sources_1/imports/src/FIR.sv
+  C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.srcs/sources_1/imports/src/IIR.sv
   C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.srcs/sources_1/imports/src/SignalGen.sv
   C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.srcs/sources_1/imports/src/Interface.sv
 }
