@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="235.911 ns"></ZoomEndTime>
-      <Cursor1Time time="135.000 ns"></Cursor1Time>
+      <ZoomEndTime time="111.251 ns"></ZoomEndTime>
+      <Cursor1Time time="55.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="264"></NameColumnWidth>
-      <ValueColumnWidth column_width="78"></ValueColumnWidth>
+      <ValueColumnWidth column_width="62"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="8" />
+   <WVObjectSize size="10" />
    <wvobject fp_name="/IIR_tb/dut/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -32,24 +32,68 @@
       <obj_property name="ElementShortName">cke</obj_property>
       <obj_property name="ObjectShortName">cke</obj_property>
    </wvobject>
+   <wvobject fp_name="/IIR_tb/dut/d" type="array">
+      <obj_property name="ElementShortName">d[16:0]</obj_property>
+      <obj_property name="ObjectShortName">d[16:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/IIR_tb/dut/xn" type="array">
       <obj_property name="ElementShortName">xn[7:0]</obj_property>
       <obj_property name="ObjectShortName">xn[7:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/IIR_tb/dut/x_n" type="array">
+      <obj_property name="ElementShortName">x_n[0:2][23:0]</obj_property>
+      <obj_property name="ObjectShortName">x_n[0:2][23:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/IIR_tb/dut/x_n[0]" type="array">
+         <obj_property name="ElementShortName">[0][23:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][23:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/IIR_tb/dut/x_n[1]" type="array">
+         <obj_property name="ElementShortName">[1][23:0]</obj_property>
+         <obj_property name="ObjectShortName">[1][23:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/IIR_tb/dut/x_n[2]" type="array">
+         <obj_property name="ElementShortName">[2][23:0]</obj_property>
+         <obj_property name="ObjectShortName">[2][23:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/IIR_tb/dut/x_n[0]" type="array">
+         <obj_property name="ElementShortName">[0][23:0]</obj_property>
+         <obj_property name="ObjectShortName">[0][23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/IIR_tb/dut/x_n[1]" type="array">
+         <obj_property name="ElementShortName">[1][23:0]</obj_property>
+         <obj_property name="ObjectShortName">[1][23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/IIR_tb/dut/x_n[2]" type="array">
+         <obj_property name="ElementShortName">[2][23:0]</obj_property>
+         <obj_property name="ObjectShortName">[2][23:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/IIR_tb/dut/delta_n" type="array">
+      <obj_property name="ElementShortName">delta_n[32:0]</obj_property>
+      <obj_property name="ObjectShortName">delta_n[32:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/IIR_tb/dut/mul_n" type="array">
+      <obj_property name="ElementShortName">mul_n[63:0]</obj_property>
+      <obj_property name="ObjectShortName">mul_n[63:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/IIR_tb/dut/yn" type="array">
-      <obj_property name="ElementShortName">yn[15:0]</obj_property>
-      <obj_property name="ObjectShortName">yn[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/IIR_tb/dut/a" type="array">
-      <obj_property name="ElementShortName">a[7:0]</obj_property>
-      <obj_property name="ObjectShortName">a[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/IIR_tb/dut/b" type="array">
-      <obj_property name="ElementShortName">b[7:0]</obj_property>
-      <obj_property name="ObjectShortName">b[7:0]</obj_property>
+      <obj_property name="ElementShortName">yn[31:0]</obj_property>
+      <obj_property name="ObjectShortName">yn[31:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/IIR_tb/dut/yn_m1" type="array">
-      <obj_property name="ElementShortName">yn_m1[15:0]</obj_property>
-      <obj_property name="ObjectShortName">yn_m1[15:0]</obj_property>
+      <obj_property name="ElementShortName">yn_m1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">yn_m1[31:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
 </wave_config>

@@ -5,5 +5,14 @@ Running: C:/Xilinx/Vivado/2024.2/bin/unwrapped/win64.o/xelab.exe --incr --debug 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 16 differs from formal bit length 8 for port 'xn' [C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.srcs/sources_1/imports/src/IIR_tb.sv:19]
 Completed static elaboration
-INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.srcs/sources_1/imports/src/IIR.sv" Line 1. Module IIR_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.srcs/sources_1/imports/src/IIR.sv" Line 1. Module IIR_default doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.IIR_default
+Compiling module xil_defaultlib.IIR_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot IIR_tb_behav

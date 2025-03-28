@@ -6,10 +6,10 @@ module IIR_tb;
     reg clk;
     reg rst;
     reg cke;
-    reg signed [7:0] xn;
+    reg signed [15:0] xn; // Match the default XW width in the IIR module
 
     // Outputs
-    wire signed [15:0] yn;
+    wire signed [31:0] yn; // Match the default YW width in the IIR module
 
     // Instantiate the DUT (Device Under Test)
     IIR dut (
@@ -35,7 +35,7 @@ module IIR_tb;
 
         // Apply reset
         #20;
-        rst = 0;
+        rst = 0; 
         cke = 1;
 
         // Apply constant input of 10 to xn

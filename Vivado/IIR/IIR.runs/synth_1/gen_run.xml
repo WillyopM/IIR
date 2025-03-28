@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1743098186" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/INTERFACE.dcp">
-  <File Type="REPORTS-TCL" Name="INTERFACE_reports.tcl"/>
-  <File Type="RDS-UTIL" Name="INTERFACE_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="INTERFACE_utilization_synth.pb"/>
-  <File Type="PA-TCL" Name="INTERFACE.tcl"/>
-  <File Type="RDS-RDS" Name="INTERFACE.vds"/>
-  <File Type="RDS-DCP" Name="INTERFACE.dcp"/>
+<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1743142098" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/INTERFACE.dcp">
+  <File Type="PA-TCL" Name="IIR.tcl"/>
+  <File Type="REPORTS-TCL" Name="IIR_reports.tcl"/>
+  <File Type="RDS-RDS" Name="IIR.vds"/>
+  <File Type="RDS-PROPCONSTRS" Name="IIR_drc_synth.rpt"/>
+  <File Type="RDS-UTIL" Name="IIR_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="IIR_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="IIR.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="IIR_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="IIR_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/imports/src/IIR.sv">
@@ -17,6 +20,7 @@
     </File>
     <File Path="$PSRCDIR/sources_1/imports/src/SignalGen.sv">
       <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="ImportPath" Val="$PPRDIR/../src/SignalGen.sv"/>
         <Attr Name="ImportTime" Val="1743082548"/>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -26,6 +30,7 @@
     </File>
     <File Path="$PSRCDIR/sources_1/imports/src/Interface.sv">
       <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="ImportPath" Val="$PPRDIR/../src/Interface.sv"/>
         <Attr Name="ImportTime" Val="1743083114"/>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -51,9 +56,17 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PSRCDIR/sources_1/imports/src/IIR_tb.sv">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="INTERFACE"/>
+      <Option Name="TopModule" Val="IIR"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
