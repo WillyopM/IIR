@@ -1,9 +1,8 @@
 module IIR #(
     parameter XW = 8,  // Width of input signal xn
-    parameter YW = 32,  // Width of output signal yn
+    parameter YW = 33,  // Width of output signal yn
     parameter DW = 16,  // Width of the decay value d
     parameter DTW = (XW > YW) ? XW + 1 : YW + 1,
-    // parameter MW = 2*(DW-1)+DTW+1, // Width of the multiplication value
     parameter MW = 35, // Width of the multiplication value
     parameter ConcatWidth = MW - YW,
     parameter HIGH_BIT = MW - 1,   // Highest bit for slicing
@@ -18,12 +17,13 @@ module IIR #(
 
     // IIR variables
 
-    typedef logic signed [63:0] signal_array_t [0:2]; // Define an array of signed values for x_n
+    typedef logic signed [XW + DW - 1:0] signal_array_t [0:2]; // Define an array of signed values for x_n
     signal_array_t x_n; // Declare the array
+    reg [31:0] i = 0; // Index for x_n (32-bit register for synthesizability)
     
     // Initialize the array with all zeros
     initial begin
-        x_n = '{default: {64{1'b0}}}; // Initialize all elements to zero
+        x_n = '{default: {XW{1'b0}}}; // Initialize all elements to zero
     end
 
     reg signed [DW-1:0] d = 32440; // Decay value = 0.9899 in Q1.15 format
@@ -38,6 +38,7 @@ module IIR #(
             x_n <= '{default: {XW{1'b0}}}; // Reset all elements to zero
             delta_n <= {DTW{1'b0}}; // Reset delta_n
             mul_n <= {MW{1'b0}};    // Reset mul_n
+            i <= 0; // Reset index
         end else if (cke) begin
             // Shift elements in x_n
             x_n[2] <= x_n[1];
@@ -45,11 +46,11 @@ module IIR #(
             x_n[0] <= xn << (DW - 1);  // Shift input signal by DW - 1
     
             // IIR filter equations
-            delta_n <= yn_m1 - x_n[0]; // Compute delta_n
-            // mul_n <= (delta_n * d) >>> (2*(DW-1));  // Perform arithmetic right shift to keep sign
+            delta_n <= (yn_m1 >> 15) - x_n[0]; // Compute delta_n
             mul_n <= (delta_n * d);  // Perform arithmetic right shift to keep sign
             yn <= (mul_n + {x_n[2], 15'b0});
             yn_m1 <= yn;               // Update previous output
+            i <= i + 1;                // Increment index
         end
     end
 

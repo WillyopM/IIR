@@ -28,7 +28,7 @@
                 }
             ],
             "miDebuggerPath": "/usr/bin/gdb",
-            "preLaunchTask": "C custom build",
+            "preLaunchTask": "C custom build"
         }
     ]
 }

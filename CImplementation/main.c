@@ -1,17 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define count 1000
-#define epsilon 0.0001
+#define COUNT 1000
+#define D 0.99
 
 int main() {
-    double d = 0.99;
-    double a = d;
-    double b = 1.0 - d;
     double yn = 0.0;
-    double yn_m1 = 0;
+    double yn_m1 = 0.0;
     double xn = 10.0;
-    
+    double delta, mul;
 
     // Open a file for writing
     FILE *file = fopen("output.csv", "w");
@@ -22,15 +19,17 @@ int main() {
 
     // Write CSV header
     fprintf(file, "Iteration,yn\n");
-    
-    for (int i = 0; i < count; i++)
-    {
-        yn = b * xn + a * yn_m1;
+
+    for (int i = 0; i < COUNT; i++) {
+        delta = (yn_m1 - xn);
+        mul = D * delta;
+        yn = xn + mul;
         yn_m1 = yn;
-        fprintf(file, "%d,%f\n", i, yn); // Write iteration and yn to the file
+
+        fprintf(file, "%d,%f\n", i, yn);
     }
 
-    fclose(file); // Close the file
+    fclose(file);
     printf("Data written to output.csv\n");
 
     return 0;
