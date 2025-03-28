@@ -3,7 +3,8 @@ module IIR #(
     parameter YW = 32,  // Width of output signal yn
     parameter DW = 16,  // Width of the decay value d
     parameter DTW = (XW > YW) ? XW + 1 : YW + 1,
-    parameter MW = 2*(DW-1)+DTW+1, // Width of the multiplication value
+    // parameter MW = 2*(DW-1)+DTW+1, // Width of the multiplication value
+    parameter MW = 35, // Width of the multiplication value
     parameter ConcatWidth = MW - YW,
     parameter HIGH_BIT = MW - 1,   // Highest bit for slicing
     parameter LOW_BIT = MW - YW    // Lowest bit for slicing
@@ -17,12 +18,12 @@ module IIR #(
 
     // IIR variables
 
-    typedef logic signed [XW + DW - 1:0] signal_array_t [0:2]; // Define an array of signed values for x_n
+    typedef logic signed [63:0] signal_array_t [0:2]; // Define an array of signed values for x_n
     signal_array_t x_n; // Declare the array
     
     // Initialize the array with all zeros
     initial begin
-        x_n = '{default: {XW{1'b0}}}; // Initialize all elements to zero
+        x_n = '{default: {64{1'b0}}}; // Initialize all elements to zero
     end
 
     reg signed [DW-1:0] d = 32440; // Decay value = 0.9899 in Q1.15 format
@@ -47,7 +48,7 @@ module IIR #(
             delta_n <= yn_m1 - x_n[0]; // Compute delta_n
             // mul_n <= (delta_n * d) >>> (2*(DW-1));  // Perform arithmetic right shift to keep sign
             mul_n <= (delta_n * d);  // Perform arithmetic right shift to keep sign
-            yn <= $signed(mul_n + x_n[2]) >>> (HIGH_BIT - LOW_BIT + 1);
+            yn <= (mul_n + {x_n[2], 15'b0});
             yn_m1 <= yn;               // Update previous output
         end
     end
