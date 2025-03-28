@@ -43,7 +43,7 @@ module IIR_tb;
         xn = 10;
 
         // Run for 110 clock cycles to observe transient response
-        #1100;
+        #11000;
 
         // End simulation
         $stop;

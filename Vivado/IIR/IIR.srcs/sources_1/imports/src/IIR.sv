@@ -1,12 +1,9 @@
 module IIR #(
     parameter XW = 8,  // Width of input signal xn
-    parameter YW = 33,  // Width of output signal yn
+    parameter YW = 35,  // Width of output signal yn
     parameter DW = 16,  // Width of the decay value d
     parameter DTW = (XW > YW) ? XW + 1 : YW + 1,
-    parameter MW = 35, // Width of the multiplication value
-    parameter ConcatWidth = MW - YW,
-    parameter HIGH_BIT = MW - 1,   // Highest bit for slicing
-    parameter LOW_BIT = MW - YW    // Lowest bit for slicing
+    parameter MW = DTW + DW // Width of the multiplication value
 )(
     input  wire                  clk,      
     input  wire                  rst,      
@@ -16,7 +13,7 @@ module IIR #(
 );
 
     // IIR variables
-    typedef logic signed [XW + DW - 1:0] signal_array_t [0:2]; // Define an array of signed values for x_n
+    typedef logic signed [XW + DW - 1:0] signal_array_t [0:1]; // Define an array of signed values for x_n
     signal_array_t x_n; // Declare the array
     reg [31:0] i = 0; // Index for x_n (unsigned for proper modulus behavior)
     reg delta_toggle = 1; // Toggle for delta_n calculation
@@ -42,7 +39,6 @@ module IIR #(
             i <= 0; // Reset index
         end else if (cke) begin
             // Shift elements in x_n
-            x_n[2] <= x_n[1];
             x_n[1] <= x_n[0];
             x_n[0] <= xn << (DW - 1);  // Shift input signal by DW - 1
 
@@ -54,10 +50,10 @@ module IIR #(
     
             // IIR filter equations
             if (delta_toggle) begin
-                delta_n <= (yn >> 15) - x_n[0]; // Compute delta_n
+                delta_n <= (yn >> (DW-1)) - x_n[0]; // Compute delta_n
                 mul_n <= (delta_n * d);  // Perform arithmetic right shift to keep sign
                 delta_toggle <= delta_toggle + 1; // Toggle delta_n calculation
-                yn <= (mul_n + {x_n[1], 15'b0});
+                yn <= (mul_n + {x_n[1], {(DW-1){1'b0}}});
             end
             yn_m1 <= yn;               // Update previous output
         end
@@ -66,7 +62,7 @@ module IIR #(
     always @(negedge clk) begin
         if (cke) begin
             if (!delta_toggle) begin
-                delta_n <= (yn >> 15) - x_n[0]; // Compute delta_n
+                delta_n <= (yn >> (DW-1)) - x_n[0]; // Compute delta_n
                 mul_n <= (delta_n * d);  // Perform arithmetic right shift to keep sign
                 delta_toggle <= delta_toggle + 1; // Toggle delta_n calculation
             end

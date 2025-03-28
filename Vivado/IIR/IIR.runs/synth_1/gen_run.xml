@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1743167178" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/INTERFACE.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1743170063" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/INTERFACE.dcp">
+  <File Type="PA-TCL" Name="IIR.tcl"/>
   <File Type="REPORTS-TCL" Name="IIR_reports.tcl"/>
+  <File Type="RDS-RDS" Name="IIR.vds"/>
+  <File Type="RDS-PROPCONSTRS" Name="IIR_drc_synth.rpt"/>
   <File Type="RDS-UTIL" Name="IIR_utilization_synth.rpt"/>
   <File Type="RDS-UTIL-PB" Name="IIR_utilization_synth.pb"/>
-  <File Type="PA-TCL" Name="IIR.tcl"/>
-  <File Type="RDS-RDS" Name="IIR.vds"/>
   <File Type="RDS-DCP" Name="IIR.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="IIR_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="IIR_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/imports/src/IIR.sv">
