@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.runs/synth_1/IIR.tcl"
+  variable script "C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.runs/synth_1/IIR_tb.tcl"
   variable category "vivado_synth"
 }
 
@@ -56,6 +56,10 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param checkpoint.writeSynthRtdsInDcp 1
+set_msg_config -id {Common 17-41} -limit 10000000
+set_msg_config -id {Synth 8-256} -limit 10000
+set_msg_config -id {Synth 8-638} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcpg236-1
 
@@ -70,7 +74,10 @@ set_property ip_output_repo c:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Viva
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_verilog -library xil_defaultlib -sv C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.srcs/sources_1/imports/src/IIR.sv
+read_verilog -library xil_defaultlib -sv {
+  C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.srcs/sources_1/imports/src/IIR.sv
+  C:/Users/willy/Desktop/Paperasse/Job/Celero/IIR/Vivado/IIR/IIR.srcs/sources_1/imports/src/IIR_tb.sv
+}
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -89,7 +96,7 @@ read_checkpoint -auto_incremental -incremental C:/Users/willy/Desktop/Paperasse/
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top IIR -part xc7a35tcpg236-1
+synth_design -top IIR_tb -part xc7a35tcpg236-1
 OPTRACE "synth_design" END { }
 if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
  send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"
@@ -99,10 +106,10 @@ if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
 OPTRACE "write_checkpoint" START { CHECKPOINT }
 # disable binary constraint mode for synth run checkpoints
 set_param constraints.enableBinaryConstraints false
-write_checkpoint -force -noxdef IIR.dcp
+write_checkpoint -force -noxdef IIR_tb.dcp
 OPTRACE "write_checkpoint" END { }
 OPTRACE "synth reports" START { REPORT }
-generate_parallel_reports -reports { "report_utilization -file IIR_utilization_synth.rpt -pb IIR_utilization_synth.pb"  } 
+generate_parallel_reports -reports { "report_utilization -file IIR_tb_utilization_synth.rpt -pb IIR_tb_utilization_synth.pb"  } 
 OPTRACE "synth reports" END { }
 file delete __synthesis_is_running__
 close [open __synthesis_is_complete__ w]

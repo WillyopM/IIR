@@ -2,17 +2,26 @@
 
 module IIR_tb;
 
+    // Parameters for the IIR module
+    parameter DW = 16;  // Width of the decay value
+    parameter XW = 16;  // Width of the input signal
+    parameter YWO = 32; // Width of the output signal
+
     // Inputs
     reg clk;
     reg rst;
     reg cke;
-    reg signed [15:0] xn; // Match the default XW width in the IIR module
+    reg signed [XW-1:0] xn; // Match the XW width in the IIR module
 
     // Outputs
-    wire signed [31:0] yn; // Match the default YW width in the IIR module
+    wire signed [YWO-1:0] yn; // Match the YWO width in the IIR module
 
     // Instantiate the DUT (Device Under Test)
-    IIR dut (
+    IIR #(
+        .DW(DW),
+        .XW(XW),
+        .YWO(YWO)
+    ) dut (
         .clk(clk),
         .rst(rst),
         .cke(cke),
@@ -38,12 +47,51 @@ module IIR_tb;
         rst = 0; 
         cke = 1;
 
-        // Apply constant input of 10 to xn
+        // Section 1: Apply constant input of 10 to xn
         #10;
         xn = 10;
+        #6000; // Run for 110 clock cycles
 
-        // Run for 110 clock cycles to observe transient response
-        #11000;
+        #20;
+        rst = 1; 
+        #20;
+        rst = 0;
+
+        // Section 1: Apply constant input of 10 to xn
+        #10;
+        xn = -10;
+        #6000; // Run for 110 clock cycles
+
+        #20;
+        rst = 1; 
+        #20;
+        rst = 0;
+
+        // Section 2: Apply maximum positive value of xn
+        xn = {(XW-1){1'b1}}; // Maximum positive value for signed XW-bit input
+        #6000; // Run for 110 clock cycles
+
+        // Wait for 600 clock cycles
+        #6000;
+
+        // Section 3: Jiggle rst while applying xn = 20
+        xn = 20;
+        #10 rst = 1; // Assert reset
+        #10 rst = 0; // Deassert reset
+        #10 rst = 1; // Assert reset again
+        #10 rst = 0; // Deassert reset
+        #6000; // Run for 110 clock cycles
+
+        // Wait for 600 clock cycles
+        #6000;
+
+        // Section 4: Apply xn = 30 and then set cke = 0
+        xn = 30;
+        #6000; // Run for 110 clock cycles
+        cke = 0; // Disable clock enable
+        #20; // Run for another 110 clock cycles
+        cke = 1; // Disable clock enable
+        #6000; // Run for another 110 clock cycles
 
         // End simulation
         $stop;

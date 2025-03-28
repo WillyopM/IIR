@@ -41,4 +41,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log IIR.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source IIR.tcl
+EAStep vivado -log IIR_tb.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source IIR_tb.tcl

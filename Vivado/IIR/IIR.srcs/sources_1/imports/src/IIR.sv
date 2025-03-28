@@ -1,9 +1,13 @@
 module IIR #(
-    parameter XW = 8,  // Width of input signal xn
-    parameter YW = 35,  // Width of output signal yn
+    parameter XW = 16,  // Width of input signal xn
     parameter DW = 16,  // Width of the decay value d
-    parameter DTW = (XW > YW) ? XW + 1 : YW + 1,
-    parameter MW = DTW + DW // Width of the multiplication value
+    parameter XWI = XW + DW - 1,  // Width of input signal xn
+    parameter DTW = (XWI > (2*(DW-1)+XW)) ? XWI + 1 : ((2*(DW-1)+XW)) + 1,
+    parameter MW = DTW + DW, // Width of the multiplication value
+    parameter YW = (2*(DW-1)+XW),  // Width of output signal yn
+    parameter YWO = 32,  // Width of output signal yn
+    parameter CONCAT_O = YW - YWO, // Output concatenation parameter
+    parameter real DECAY_VALUE = 0.99 // Decay value as a parameter
 )(
     input  wire                  clk,      
     input  wire                  rst,      
@@ -13,7 +17,7 @@ module IIR #(
 );
 
     // IIR variables
-    typedef logic signed [XW + DW - 1:0] signal_array_t [0:1]; // Define an array of signed values for x_n
+    typedef logic signed [XWI:0] signal_array_t [0:1]; // Define an array of signed values for x_n
     signal_array_t x_n; // Declare the array
     reg [31:0] i = 0; // Index for x_n (unsigned for proper modulus behavior)
     reg delta_toggle = 1; // Toggle for delta_n calculation
@@ -24,10 +28,11 @@ module IIR #(
         x_n = '{default: {XW{1'b0}}}; // Initialize all elements to zero
     end
 
-    reg signed [DW-1:0] d = 32440; // Decay value = 0.9899 in Q1.15 format
+    reg signed [DW-1:0] d = $rtoi(DECAY_VALUE * (1 << (DW - 1))); // Decay value in Q1.15 format
     reg signed [YW-1:0] yn_m1 = {YW{1'b0}}; // Previous output
     reg signed [DTW-1:0] delta_n; // Delta value
     reg signed [MW-1:0] mul_n; // Multiplication value
+    wire signed [YWO-1:0] yn_o; // Output signal
 
     always @(posedge clk) begin 
         if (rst) begin
@@ -60,7 +65,7 @@ module IIR #(
     end
 
     always @(negedge clk) begin
-        if (cke) begin
+        if (cke && !rst) begin
             if (!delta_toggle) begin
                 delta_n <= (yn >> (DW-1)) - x_n[0]; // Compute delta_n
                 mul_n <= (delta_n * d);  // Perform arithmetic right shift to keep sign
@@ -68,5 +73,7 @@ module IIR #(
             end
         end
     end
+
+    assign yn_o = yn[YW-1:CONCAT_O]; // Assign the output width parameter
 
 endmodule
