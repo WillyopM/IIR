@@ -54,6 +54,7 @@ module IIR_tb;
 
         #20;
         rst = 1; 
+        xn = -10;
         #20;
         rst = 0;
 

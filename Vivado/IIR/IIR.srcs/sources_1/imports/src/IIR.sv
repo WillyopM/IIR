@@ -55,7 +55,7 @@ module IIR #(
     
             // IIR filter equations
             if (delta_toggle) begin
-                delta_n <= (yn >> (DW-1)) - x_n[0]; // Compute delta_n
+                delta_n <= (yn >>> (DW-1)) - x_n[0]; // Compute delta_n
                 mul_n <= (delta_n * d);  // Perform arithmetic right shift to keep sign
                 delta_toggle <= delta_toggle + 1; // Toggle delta_n calculation
                 yn <= (mul_n + {x_n[1], {(DW-1){1'b0}}});
@@ -67,7 +67,7 @@ module IIR #(
     always @(negedge clk) begin
         if (cke && !rst) begin
             if (!delta_toggle) begin
-                delta_n <= (yn >> (DW-1)) - x_n[0]; // Compute delta_n
+                delta_n <= (yn >>> (DW-1)) - x_n[0]; // Compute delta_n
                 mul_n <= (delta_n * d);  // Perform arithmetic right shift to keep sign
                 delta_toggle <= delta_toggle + 1; // Toggle delta_n calculation
             end
