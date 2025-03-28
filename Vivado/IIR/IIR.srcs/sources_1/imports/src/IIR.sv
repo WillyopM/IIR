@@ -16,10 +16,11 @@ module IIR #(
 );
 
     // IIR variables
-
     typedef logic signed [XW + DW - 1:0] signal_array_t [0:2]; // Define an array of signed values for x_n
     signal_array_t x_n; // Declare the array
-    reg [31:0] i = 0; // Index for x_n (32-bit register for synthesizability)
+    reg [31:0] i = 0; // Index for x_n (unsigned for proper modulus behavior)
+    reg delta_toggle = 1; // Toggle for delta_n calculation
+    reg nData_toggle = 1; // Toggle for x_n data
     
     // Initialize the array with all zeros
     initial begin
@@ -44,13 +45,31 @@ module IIR #(
             x_n[2] <= x_n[1];
             x_n[1] <= x_n[0];
             x_n[0] <= xn << (DW - 1);  // Shift input signal by DW - 1
+
+            nData_toggle <= nData_toggle + 1; // Toggle x_n data
+
+            if (!nData_toggle) begin
+                i <= i + 1; // Increment index
+            end
     
             // IIR filter equations
-            delta_n <= (yn_m1 >> 15) - x_n[0]; // Compute delta_n
-            mul_n <= (delta_n * d);  // Perform arithmetic right shift to keep sign
-            yn <= (mul_n + {x_n[2], 15'b0});
+            if (delta_toggle) begin
+                delta_n <= (yn >> 15) - x_n[0]; // Compute delta_n
+                mul_n <= (delta_n * d);  // Perform arithmetic right shift to keep sign
+                delta_toggle <= delta_toggle + 1; // Toggle delta_n calculation
+                yn <= (mul_n + {x_n[1], 15'b0});
+            end
             yn_m1 <= yn;               // Update previous output
-            i <= i + 1;                // Increment index
+        end
+    end
+
+    always @(negedge clk) begin
+        if (cke) begin
+            if (!delta_toggle) begin
+                delta_n <= (yn >> 15) - x_n[0]; // Compute delta_n
+                mul_n <= (delta_n * d);  // Perform arithmetic right shift to keep sign
+                delta_toggle <= delta_toggle + 1; // Toggle delta_n calculation
+            end
         end
     end
 
